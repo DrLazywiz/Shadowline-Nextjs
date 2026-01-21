@@ -1,9 +1,14 @@
 
-import { getProducts } from '@/lib/shopify';
+import { getProducts, Product } from '@/lib/shopify';
 import { ProductCard } from '@/components/shop/ProductCard';
 
 export async function BestSellers() {
-    const products = await getProducts({ sortKey: 'BEST_SELLING', reverse: false });
+    let products: Product[] = [];
+    try {
+        products = await getProducts({ sortKey: 'BEST_SELLING', reverse: false });
+    } catch (e) {
+        console.error("BestSellers Error:", e);
+    }
     const topProducts = products.slice(0, 4);
 
     if (topProducts.length === 0) return null;

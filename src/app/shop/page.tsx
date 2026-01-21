@@ -52,18 +52,25 @@ export default async function ShopPage({
     const finalQuery = searchParts.join(' ');
 
     // Fetch filtered products
-    const products = await getProducts({
-        sortKey,
-        reverse,
-        query: finalQuery
-    });
+    let products: any[] = [];
+    try {
+        products = await getProducts({
+            sortKey,
+            reverse,
+            query: finalQuery
+        });
+    } catch (e) {
+        console.error("ShopPage Fetch Error:", e);
+    }
 
-    // Extract Facets for Sidebar (From *all* products ideally, but using current result set + initial generic fetch might be better. 
-    // To ensure filters persist even when filtered, we should really fetch "all possible values" or use a smart approach.
-    // For this MPV, we will fetch standard products separately to populate filters if needed, 
-    // BUT simpler is to let filters be dynamic based on results (faceted search style) OR just fetch a raw list.
-    // Let's do a separate "base fetch" for facets to ensure Sidebars don't disappear when you filter.
-    const baseProducts = await getProducts({ sortKey: 'CREATED_AT' }); // Fetch sample to get brands/cats
+    // Extract Facets for Sidebar
+    let baseProducts: any[] = [];
+    try {
+        baseProducts = await getProducts({ sortKey: 'CREATED_AT' });
+    } catch (e) {
+        console.error("ShopPage Facet Fetch Error:", e);
+    }
+
     const validBrands = Array.from(new Set(baseProducts.map(p => p.vendor).filter(Boolean)));
     const validCategories = Array.from(new Set(baseProducts.map(p => p.productType).filter(Boolean)));
 
