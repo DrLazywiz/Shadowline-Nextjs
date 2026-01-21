@@ -5,11 +5,13 @@ import { SlidersHorizontal, ArrowUpDown, Filter } from 'lucide-react';
 export function ShopToolbar({
     totalItems,
     onOpenFilters,
-    onSearch
+    onSearch,
+    searchTerm = ''
 }: {
     totalItems: number;
     onOpenFilters?: () => void;
     onSearch?: (term: string) => void;
+    searchTerm?: string;
 }) {
     const searchParams = useSearchParams();
     const { replace } = useRouter();
@@ -31,6 +33,7 @@ export function ShopToolbar({
             <div className="relative w-full md:w-64">
                 <input
                     type="text"
+                    value={searchTerm}
                     placeholder="SEARCH SYSTEM..."
                     onChange={(e) => onSearch?.(e.target.value)}
                     className="w-full h-11 bg-black border border-white/10 rounded-md pl-10 pr-4 text-xs font-mono font-bold text-white placeholder:text-neutral-700 focus:border-white/30 focus:outline-none uppercase"

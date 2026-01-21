@@ -23,11 +23,14 @@ export function ShopInterface({
     const filteredProducts = useMemo(() => {
         if (!searchTerm) return products;
         const lowerTerm = searchTerm.toLowerCase();
-        return products.filter(product =>
-            product.title.toLowerCase().includes(lowerTerm) ||
-            product.productType.toLowerCase().includes(lowerTerm) ||
-            product.vendor.toLowerCase().includes(lowerTerm)
-        );
+
+        return products.filter(product => {
+            const title = product?.title?.toLowerCase() || '';
+            const type = product?.productType?.toLowerCase() || '';
+            const vendor = product?.vendor?.toLowerCase() || '';
+
+            return title.includes(lowerTerm) || type.includes(lowerTerm) || vendor.includes(lowerTerm);
+        });
     }, [products, searchTerm]);
 
     return (
@@ -47,6 +50,7 @@ export function ShopInterface({
                     totalItems={filteredProducts.length}
                     onOpenFilters={() => setMobileFiltersOpen(true)}
                     onSearch={(term) => setSearchTerm(term)}
+                    searchTerm={searchTerm}
                 />
 
                 {/* Product Grid (Client Side Rendered) */}
