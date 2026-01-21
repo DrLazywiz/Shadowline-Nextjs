@@ -7,6 +7,8 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { X } from 'lucide-react';
 import Image from 'next/image';
 
+import { createPortal } from 'react-dom';
+
 export function QuickAddDrawer({
     product,
     isOpen,
@@ -19,6 +21,11 @@ export function QuickAddDrawer({
     const { addItem } = useCart();
     const [selectedOptions, setSelectedOptions] = useState<Record<string, string>>({});
     const [isAdding, setIsAdding] = useState(false);
+    const [mounted, setMounted] = useState(false);
+
+    useEffect(() => {
+        setMounted(true);
+    }, []);
 
     // Initialize default options
     useEffect(() => {
@@ -31,7 +38,7 @@ export function QuickAddDrawer({
         }
     }, [product]);
 
-    if (!product) return null;
+    if (!product || !mounted) return null;
 
     // Find selected variant
     const selectedVariant = product.variants.edges.find(({ node }) => {
@@ -50,7 +57,7 @@ export function QuickAddDrawer({
         ? selectedVariant.price
         : product.priceRange.minVariantPrice;
 
-    return (
+    return createPortal(
         <AnimatePresence>
             {isOpen && (
                 <>
@@ -135,6 +142,7 @@ export function QuickAddDrawer({
                     </motion.div>
                 </>
             )}
-        </AnimatePresence>
+        </AnimatePresence>,
+        document.body
     );
 }
