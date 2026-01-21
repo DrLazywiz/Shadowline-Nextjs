@@ -65,7 +65,7 @@ export function ProductCard({ product }: { product: Product }) {
 
                     <button
                         onClick={() => setDrawerOpen(true)}
-                        className="mt-auto w-full bg-[var(--color-brand-red)] text-white hover:bg-[var(--color-brand-red)] hover:shadow-[0_0_20px_var(--color-brand-red)] hover:brightness-110 text-[10px] font-bold uppercase tracking-widest py-3 px-4 rounded-sm transition-all flex items-center justify-center gap-2"
+                        className="mt-auto w-full bg-[var(--color-brand-red)] text-white hover:bg-[var(--color-brand-red)] hover:shadow-[0_0_20px_var(--color-brand-red)] hover:brightness-110 text-[10px] font-bold font-mono uppercase tracking-widest py-3 px-4 rounded-sm transition-all flex items-center justify-center gap-2"
                     >
                         <ShoppingBag size={12} /> Add to Cart
                     </button>

@@ -20,7 +20,7 @@ export function CartDrawer() {
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         onClick={closeCart}
-                        className="fixed inset-0 z-[60] bg-black/60 backdrop-blur-sm"
+                        className="fixed inset-0 z-[80] bg-black/60 backdrop-blur-sm"
                     />
 
                     {/* Drawer Panel */}
@@ -29,7 +29,7 @@ export function CartDrawer() {
                         animate={{ x: 0 }}
                         exit={{ x: '100%' }}
                         transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-                        className="fixed inset-y-0 right-0 z-[70] w-full max-w-md bg-neutral-900 border-l border-white/10 shadow-2xl flex flex-col"
+                        className="fixed inset-y-0 right-0 z-[90] w-full max-w-md bg-neutral-900 border-l border-white/10 shadow-2xl flex flex-col"
                     >
                         {/* Header */}
                         <div className="flex items-center justify-between p-6 border-b border-white/5">
