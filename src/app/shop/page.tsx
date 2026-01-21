@@ -42,22 +42,17 @@ export default async function ShopPage({
     }
 
     // Construct Search Query
-    const searchParts = [];
-    if (queryParam) searchParts.push(queryParam);
-    if (brandParam) searchParts.push(`vendor:${brandParam}`);
-    if (typeParam) searchParts.push(`product_type:${typeParam}`);
-    if (minPrice) searchParts.push(`variants.price:>=${minPrice}`);
-    if (maxPrice) searchParts.push(`variants.price:<=${maxPrice}`);
+    // Construct Search Query (Server Side - Optional, but for small catalog "real time" typically means fetch all)
+    // For this specific request ("Real Time"), we want all products on client to filter instantly.
+    // So we will IGNORE the query param for fetching (except maybe for deep linking later).
 
-    const finalQuery = searchParts.join(' ');
-
-    // Fetch filtered products
+    // Fetch ALL products for client-side filtering
     let products: any[] = [];
     try {
         products = await getProducts({
-            sortKey,
-            reverse,
-            query: finalQuery
+            sortKey: sortKey,
+            reverse: reverse,
+            // query: finalQuery // Disable server filtering to allow client full access
         });
     } catch (e) {
         console.error("ShopPage Fetch Error:", e);
@@ -74,8 +69,6 @@ export default async function ShopPage({
     const validBrands = Array.from(new Set(baseProducts.map(p => p.vendor).filter(Boolean)));
     const validCategories = Array.from(new Set(baseProducts.map(p => p.productType).filter(Boolean)));
 
-
-
     return (
         <main className="min-h-screen bg-black text-white selection:bg-white selection:text-black">
             <Navbar />
@@ -86,28 +79,8 @@ export default async function ShopPage({
                 <ShopInterface
                     brands={validBrands}
                     categories={validCategories}
-                    totalItems={products.length}
-                >
-                    {/* Product Grid */}
-                    <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-x-4 md:gap-x-8 gap-y-12">
-                        {products.length > 0 ? (
-                            products.map((product) => (
-                                <ProductCard key={product.id} product={product} />
-                            ))
-                        ) : (
-                            <div className="col-span-full py-32 flex flex-col items-center justify-center text-center border border-dashed border-white/10 rounded-lg">
-                                <div className="w-16 h-16 bg-white/5 rounded-full flex items-center justify-center mb-6">
-                                    <Search className="text-neutral-600" size={24} />
-                                </div>
-                                <h3 className="text-lg font-bold uppercase text-white mb-2">System Empty</h3>
-                                <p className="text-neutral-500 font-mono text-xs max-w-xs mx-auto">
-                                    No matching units found in the database.
-                                    Adjust filters or initialize new search protocol.
-                                </p>
-                            </div>
-                        )}
-                    </div>
-                </ShopInterface>
+                    products={products}
+                />
             </div>
         </main>
     );
