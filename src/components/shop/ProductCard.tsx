@@ -27,6 +27,13 @@ export function ProductCard({ product }: { product: Product }) {
                         <div className="h-2 w-2 border-b border-l border-[var(--color-brand-red)] shadow-[0_0_5px_var(--color-brand-red)]"></div>
                     </div>
 
+                    {/* Sale Badge */}
+                    {compareAtPrice && parseFloat(compareAtPrice.amount) > parseFloat(price.amount) && (
+                        <div className="absolute top-2 right-2 z-10 bg-white text-black px-2 py-1 rounded-sm">
+                            <span className="text-[10px] font-bold uppercase tracking-wider">Sale</span>
+                        </div>
+                    )}
+
                     {featuredImage && (
                         <Image
                             src={featuredImage.url}
@@ -38,14 +45,14 @@ export function ProductCard({ product }: { product: Product }) {
                     )}
                 </Link>
 
-                <div className="mt-4 flex flex-col gap-3 flex-1">
+                <div className="mt-4 flex flex-col gap-2 flex-1">
                     <div>
                         <Link href={`/products/${handle}`}>
                             <h3 className="text-sm font-bold uppercase tracking-wider text-white hover:text-neutral-200 transition-colors line-clamp-2 min-h-[2.5em]">
                                 {title}
                             </h3>
                         </Link>
-                        <div className="flex items-center gap-2 mt-1">
+                        <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1 mt-2">
                             <p className="text-lg font-black font-mono text-white">
                                 {new Intl.NumberFormat('en-US', {
                                     style: 'currency',
