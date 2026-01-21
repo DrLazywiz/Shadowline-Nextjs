@@ -157,8 +157,9 @@ export async function shopifyFetch<T>({
       body,
     };
   } catch (e) {
+    console.error("Shopify Fetch Error:", e);
     throw {
-      error: e,
+      error: e instanceof Error ? e.toString() : e,
       query,
     };
   }
