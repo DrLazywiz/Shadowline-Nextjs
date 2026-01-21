@@ -97,7 +97,7 @@ export function QuickAddDrawer({
                         </div>
 
                         {/* Options */}
-                        <div className="space-y-6 overflow-y-auto mb-6">
+                        <div className="space-y-6 overflow-y-auto mb-6 flex-1 min-h-0">
                             {product.options?.map((option) => (
                                 <div key={option.id} className="space-y-2">
                                     <label className="text-xs font-bold uppercase text-neutral-500 tracking-wider">
