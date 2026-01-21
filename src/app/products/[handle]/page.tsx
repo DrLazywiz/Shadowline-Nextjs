@@ -1,5 +1,6 @@
 
 import { getProduct } from '@/lib/shopify';
+import { Navbar } from '@/components/layout/Navbar';
 import { ProductGallery } from '@/components/product/ProductGallery';
 import { ProductInfo } from '@/components/product/ProductInfo';
 import { notFound } from 'next/navigation';
@@ -23,7 +24,7 @@ export default async function ProductPage({ params }: Props) {
 
     return (
         <main className="min-h-screen bg-black text-white selection:bg-white selection:text-black">
-
+            <Navbar />
 
             <div className="pt-24 lg:pt-32 pb-4 lg:pb-24 container mx-auto px-6 h-auto lg:h-[calc(100vh-6rem)]">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-24 h-full">

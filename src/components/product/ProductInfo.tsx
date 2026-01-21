@@ -21,11 +21,15 @@ export function ProductInfo({ product }: { product: Product }) {
     const formattedPrice = new Intl.NumberFormat('en-US', {
         style: 'currency',
         currency: currency,
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0,
     }).format(parseFloat(price));
 
     const formattedCompareAtPrice = compareAtPrice ? new Intl.NumberFormat('en-US', {
         style: 'currency',
         currency: currency,
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0,
     }).format(parseFloat(compareAtPrice)) : null;
 
     const discountPercentage = compareAtPrice

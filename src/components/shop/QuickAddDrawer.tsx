@@ -59,14 +59,14 @@ export function QuickAddDrawer({
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         onClick={onClose}
-                        className="fixed inset-0 z-[100] bg-black/60 backdrop-blur-sm"
+                        className="fixed inset-0 z-[999] bg-black/60 backdrop-blur-sm"
                     />
                     <motion.div
                         initial={{ y: '100%' }}
                         animate={{ y: 0 }}
                         exit={{ y: '100%' }}
                         transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-                        className="fixed bottom-0 left-0 right-0 md:top-1/2 md:left-1/2 md:right-auto md:bottom-auto md:-translate-x-1/2 md:-translate-y-1/2 md:w-full md:max-w-md z-[110] bg-neutral-900 border-t md:border border-white/10 rounded-t-xl md:rounded-xl p-6 flex flex-col max-h-[85vh]"
+                        className="fixed bottom-0 left-0 right-0 md:top-1/2 md:left-1/2 md:right-auto md:bottom-auto md:-translate-x-1/2 md:-translate-y-1/2 md:w-full md:max-w-md z-[1000] bg-neutral-900 border-t md:border border-white/10 rounded-t-xl md:rounded-xl p-6 flex flex-col max-h-[85vh]"
                     >
                         {/* Header */}
                         <div className="flex items-start justify-between mb-6">
