@@ -4,14 +4,10 @@ import { SlidersHorizontal, ArrowUpDown, Filter } from 'lucide-react';
 
 export function ShopToolbar({
     totalItems,
-    onOpenFilters,
-    onSearch,
-    searchTerm = ''
+    onOpenFilters
 }: {
     totalItems: number;
     onOpenFilters?: () => void;
-    onSearch?: (term: string) => void;
-    searchTerm?: string;
 }) {
     const searchParams = useSearchParams();
     const { replace } = useRouter();
@@ -27,46 +23,18 @@ export function ShopToolbar({
     };
 
     return (
-        <div className="mb-6 md:mb-8 flex flex-col md:flex-row items-center gap-4">
-
-            {/* Search Bar (Real Time) */}
-            <div className="relative w-full md:w-64">
-                <input
-                    type="text"
-                    value={searchTerm}
-                    placeholder="SEARCH SYSTEM..."
-                    onChange={(e) => onSearch?.(e.target.value)}
-                    className="w-full h-11 bg-black border border-white/10 rounded-md pl-10 pr-4 text-xs font-mono font-bold text-white placeholder:text-neutral-700 focus:border-white/30 focus:outline-none uppercase"
-                />
-                <div className="absolute left-3 top-1/2 -translate-y-1/2">
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="14"
-                        height="14"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        className="text-neutral-600"
-                    >
-                        <circle cx="11" cy="11" r="8"></circle>
-                        <path d="m21 21-4.3-4.3"></path>
-                    </svg>
-                </div>
-            </div>
+        <div className="mb-6 md:mb-8 flex flex-row items-center gap-4">
 
             {/* Mobile Filter Trigger */}
             <button
                 onClick={onOpenFilters}
-                className="lg:hidden w-full md:w-auto h-11 flex items-center justify-center gap-2 bg-black border border-white/20 rounded-md text-xs font-bold uppercase tracking-widest text-white hover:bg-white/5 transition-colors"
+                className="lg:hidden flex-1 h-11 flex items-center justify-center gap-2 bg-black border border-white/20 rounded-md text-xs font-bold uppercase tracking-widest text-white hover:bg-white/5 transition-colors"
             >
-                <Filter size={14} /> Filters
+                <Filter size={14} /> System Filters
             </button>
 
             {/* Sort Dropdown */}
-            <div className="relative w-full md:w-auto min-w-[160px]">
+            <div className="relative flex-1 md:flex-none md:w-auto min-w-[160px]">
                 <select
                     onChange={(e) => handleSort(e.target.value)}
                     defaultValue={searchParams.get('sort')?.toString()}

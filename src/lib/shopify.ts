@@ -176,7 +176,7 @@ export async function getProducts({
 } = {}): Promise<Product[]> {
   const query = `
     query Products($sortKey: ProductSortKeys, $reverse: Boolean, $query: String) {
-      products(first: 100, sortKey: $sortKey, reverse: $reverse, query: $query) {
+      products(first: 20, sortKey: $sortKey, reverse: $reverse, query: $query) {
         edges {
           node {
             id
