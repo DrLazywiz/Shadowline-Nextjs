@@ -35,7 +35,7 @@ export function CartDrawer() {
                         <div className="flex items-center justify-between p-6 border-b border-white/5">
                             <h2 className="text-xl font-bold uppercase tracking-widest text-white flex items-center gap-2">
                                 System Diagnostic
-                                <span className="text-xs font-mono text-neutral-500 bg-black px-2 py-1 rounded">
+                                <span className="text-xs font-mono text-[var(--color-brand-red)] border border-[var(--color-brand-red)]/50 bg-black px-2 py-1 rounded shadow-[0_0_5px_rgba(234,0,0,0.3)]">
                                     {cart?.totalQuantity || 0} UNITS
                                 </span>
                             </h2>
@@ -111,7 +111,7 @@ export function CartDrawer() {
                                 </div>
                                 <a
                                     href={cart.checkoutUrl}
-                                    className="block w-full bg-white text-black text-center font-bold uppercase tracking-widest py-4 hover:bg-neutral-200 transition-colors"
+                                    className="block w-full bg-[var(--color-brand-red)] text-white text-center font-bold uppercase tracking-widest py-4 hover:shadow-[0_0_20px_var(--color-brand-red)] hover:brightness-110 transition-all"
                                 >
                                     Proceed to Checkout
                                 </a>

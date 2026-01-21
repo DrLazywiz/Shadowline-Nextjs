@@ -1,6 +1,6 @@
 
 import { getProducts, Product } from '@/lib/shopify';
-import { ProductCard } from '@/components/shop/ProductCard';
+import { ProductCarousel } from '@/components/home/ProductCarousel';
 
 export async function BestSellers() {
     let products: Product[] = [];
@@ -9,7 +9,7 @@ export async function BestSellers() {
     } catch (e) {
         console.error("BestSellers Error:", e);
     }
-    const topProducts = products.slice(0, 4);
+    const topProducts = products.slice(0, 8);
 
     if (topProducts.length === 0) return null;
 
@@ -34,12 +34,8 @@ export async function BestSellers() {
                     </a>
                 </div>
 
-                <div className="flex overflow-x-auto snap-x snap-mandatory gap-6 pb-8 -mx-6 px-6 lg:grid lg:grid-cols-4 lg:gap-8 lg:pb-0 lg:mx-0 lg:px-0 no-scrollbar">
-                    {topProducts.map(product => (
-                        <div key={product.id} className="min-w-[45vw] sm:min-w-[33vw] lg:min-w-0 snap-center">
-                            <ProductCard product={product} />
-                        </div>
-                    ))}
+                <div className="md:px-12">
+                    <ProductCarousel products={topProducts} />
                 </div>
 
                 <div className="mt-12 text-center md:hidden">

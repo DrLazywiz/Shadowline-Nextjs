@@ -18,13 +18,13 @@ export function ProductCard({ product }: { product: Product }) {
     return (
         <>
             <div className="group relative block h-full flex flex-col">
-                <Link href={`/products/${handle}`} className="relative aspect-[3/4] w-full overflow-hidden rounded-lg border border-white/10 bg-neutral-900/50 transition-colors group-hover:bg-neutral-800/50 block">
+                <Link href={`/products/${handle}`} className="relative aspect-square w-full overflow-hidden rounded-lg border border-white/10 bg-neutral-900/50 transition-colors group-hover:bg-neutral-800/50 block">
                     {/* Technical Corner Markers */}
                     <div className="absolute top-0 right-0 p-2 opacity-0 transition-opacity group-hover:opacity-100">
-                        <div className="h-2 w-2 border-t border-r border-white/50"></div>
+                        <div className="h-2 w-2 border-t border-r border-[var(--color-brand-red)] shadow-[0_0_5px_var(--color-brand-red)]"></div>
                     </div>
                     <div className="absolute bottom-0 left-0 p-2 opacity-0 transition-opacity group-hover:opacity-100">
-                        <div className="h-2 w-2 border-b border-l border-white/50"></div>
+                        <div className="h-2 w-2 border-b border-l border-[var(--color-brand-red)] shadow-[0_0_5px_var(--color-brand-red)]"></div>
                     </div>
 
                     {featuredImage && (
@@ -32,7 +32,7 @@ export function ProductCard({ product }: { product: Product }) {
                             src={featuredImage.url}
                             alt={featuredImage.altText || title}
                             fill
-                            className="object-contain p-0 transition-transform duration-500 group-hover:scale-105"
+                            className="object-cover p-0 transition-transform duration-500 group-hover:scale-105"
                             sizes="(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 50vw"
                         />
                     )}
@@ -65,7 +65,7 @@ export function ProductCard({ product }: { product: Product }) {
 
                     <button
                         onClick={() => setDrawerOpen(true)}
-                        className="mt-auto w-full bg-white text-black hover:bg-neutral-200 text-[10px] font-bold uppercase tracking-widest py-3 px-4 rounded-sm transition-all flex items-center justify-center gap-2"
+                        className="mt-auto w-full bg-[var(--color-brand-red)] text-white hover:bg-[var(--color-brand-red)] hover:shadow-[0_0_20px_var(--color-brand-red)] hover:brightness-110 text-[10px] font-bold uppercase tracking-widest py-3 px-4 rounded-sm transition-all flex items-center justify-center gap-2"
                     >
                         <ShoppingBag size={12} /> Add to Cart
                     </button>

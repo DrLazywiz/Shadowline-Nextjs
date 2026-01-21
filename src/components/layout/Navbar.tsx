@@ -100,7 +100,7 @@ export function Navbar() {
                         {/* Custom "User with Bolt" aesthetic from reference */}
                         <div className="relative">
                             <User size={20} strokeWidth={1.5} />
-                            <div className="absolute -bottom-1 -right-1 text-yellow-500">
+                            <div className="absolute -bottom-1 -right-1 text-[var(--color-brand-red)] drop-shadow-[0_0_5px_rgba(234,0,0,0.8)]">
                                 <Zap size={10} fill="currentColor" />
                             </div>
                         </div>
@@ -109,7 +109,7 @@ export function Navbar() {
                     <button onClick={openCart} className="text-white hover:text-neutral-400 transition-colors relative">
                         <ShoppingBag size={20} strokeWidth={1.5} />
                         {cart?.totalQuantity ? (
-                            <span className="absolute -top-1 -right-1 flex h-3 w-3 items-center justify-center rounded-full bg-white text-[8px] font-bold text-black border border-black">
+                            <span className="absolute -top-1 -right-1 flex h-3 w-3 items-center justify-center rounded-full bg-[var(--color-brand-red)] text-white text-[8px] font-bold border border-black shadow-[0_0_5px_var(--color-brand-red)]">
                                 {cart.totalQuantity}
                             </span>
                         ) : null}
@@ -177,7 +177,7 @@ export function Navbar() {
                                     name="q"
                                     placeholder="SEARCH PROTOCOL..."
                                     autoFocus
-                                    className="w-full bg-transparent border-b-2 border-white/20 py-4 pl-12 pr-4 text-3xl font-black uppercase text-white placeholder:text-neutral-700 outline-none focus:border-white transition-colors"
+                                    className="w-full bg-transparent border-b-2 border-white/20 py-4 pl-12 pr-4 text-3xl font-black uppercase text-white placeholder:text-neutral-700 outline-none focus:border-[var(--color-brand-red)] transition-colors"
                                 />
                             </form>
                             <p className="mt-4 text-neutral-600 font-mono text-xs uppercase tracking-widest">

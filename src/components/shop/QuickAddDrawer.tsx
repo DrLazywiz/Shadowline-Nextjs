@@ -128,7 +128,7 @@ export function QuickAddDrawer({
                         <button
                             onClick={handleAddToCart}
                             disabled={!selectedVariant?.availableForSale || isAdding}
-                            className="w-full bg-white text-black font-bold uppercase tracking-widest py-4 rounded-sm hover:bg-neutral-200 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                            className="w-full bg-[var(--color-brand-red)] text-white font-bold uppercase tracking-widest py-4 rounded-sm hover:shadow-[0_0_20px_var(--color-brand-red)] hover:brightness-110 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                         >
                             {isAdding ? 'Adding...' : !selectedVariant?.availableForSale ? 'Out of Stock' : 'Add to Cart'}
                         </button>

@@ -1,67 +1,102 @@
 
 'use client';
 
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
+import { useState, useEffect } from 'react';
 
 export function Hero() {
-    const { scrollY } = useScroll();
-    const y = useTransform(scrollY, [0, 1000], [0, 400]);
-    const opacity = useTransform(scrollY, [0, 600], [1, 0]);
+    const [currentSlide, setCurrentSlide] = useState(0);
+
+    const slides = [
+        {
+            id: 1,
+            image: '/images/Hero/slide2.png',
+            title: 'Precision Redefined.',
+            subtitle: 'Beyond Components. The Architecture of Speed.',
+            link: '/shop?sort=best-selling'
+        },
+        {
+            id: 2,
+            image: '/images/Hero/slide1.png',
+            title: 'Total Control.',
+            subtitle: 'Engineered for the Edge of Physics.',
+            link: '/shop?type=Components'
+        },
+        {
+            id: 3,
+            image: '/images/Landing/1.jpg',
+            title: 'Unleash Speed.',
+            subtitle: 'Dominate the Track. own the Podium.',
+            link: '/shop'
+        }
+    ];
+
+    useEffect(() => {
+        const timer = setInterval(() => {
+            setCurrentSlide((prev) => (prev + 1) % slides.length);
+        }, 5000);
+        return () => clearInterval(timer);
+    }, []);
 
     return (
-        <section className="relative h-screen w-full overflow-hidden bg-black flex items-center justify-center">
-            {/* Background Gradients using CSS via style prop for dynamic glow if needed, or pure Tailwind */}
-            <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black z-10 pointer-events-none" />
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-white/5 via-transparent to-transparent opacity-50 z-0" />
-
-            {/* Floating Hero Object */}
-            <motion.div
-                style={{ y, opacity }}
-                initial={{ scale: 0.8, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                transition={{ duration: 1.5, ease: "easeOut" }}
-                className="relative z-0 w-[500px] h-[500px] md:w-[700px] md:h-[700px]"
-            >
-                <Image
-                    src="/images/hero-sprocket.png"
-                    alt="Precision Engineered Component"
-                    fill
-                    className="object-contain drop-shadow-2xl"
-                    priority
-                />
-                {/* Breathing Animation Wrapper */}
+        <section className="relative h-screen w-full overflow-hidden bg-black flex items-end justify-center pb-24">
+            <AnimatePresence mode='wait'>
                 <motion.div
-                    animate={{
-                        y: [0, -20, 0],
-                        rotate: [0, 2, 0]
-                    }}
-                    transition={{
-                        repeat: Infinity,
-                        duration: 6,
-                        ease: "easeInOut"
-                    }}
-                    className="absolute inset-0"
-                />
-            </motion.div>
+                    key={currentSlide}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 1 }}
+                    className="absolute inset-0 z-0"
+                >
+                    <Image
+                        src={slides[currentSlide].image}
+                        alt={slides[currentSlide].title}
+                        fill
+                        className="object-cover opacity-60"
+                        priority
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/90" />
+                </motion.div>
+            </AnimatePresence>
 
-            {/* Foreground Copy - "One Powerful Line" */}
-            <motion.div
-                initial={{ opacity: 0, y: 50 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.8, duration: 1 }}
-                className="absolute bottom-24 left-6 z-20 md:left-24"
-            >
-                <h1 className="text-4xl md:text-6xl lg:text-8xl font-black text-white uppercase tracking-tighter leading-tight">
-                    Precision <br />
-                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-600">
-                        Redefined.
-                    </span>
-                </h1>
-                <p className="mt-6 text-sm md:text-base text-neutral-400 max-w-sm tracking-widest uppercase border-l-2 border-white/20 pl-4">
-                    Beyond Components. <br /> The Architecture of Speed.
-                </p>
-            </motion.div>
+            <div className="relative z-10 text-center max-w-4xl px-6 mb-12">
+                <AnimatePresence mode='wait'>
+                    <motion.div
+                        key={currentSlide}
+                        initial={{ y: 20, opacity: 0 }}
+                        animate={{ y: 0, opacity: 1 }}
+                        exit={{ y: -20, opacity: 0 }}
+                        transition={{ duration: 0.5, delay: 0.2 }}
+                    >
+                        <h1 className="text-4xl md:text-6xl lg:text-8xl font-black text-white uppercase tracking-tighter mb-4">
+                            {slides[currentSlide].title}
+                        </h1>
+                        <p className="text-xs md:text-base text-neutral-300 font-mono uppercase tracking-[0.2em] mb-8">
+                            {slides[currentSlide].subtitle}
+                        </p>
+                        <a
+                            href={slides[currentSlide].link}
+                            className="inline-block bg-[var(--color-brand-red)] text-white font-bold uppercase tracking-widest py-3 px-8 text-xs md:text-sm transition-all hover:shadow-[0_0_20px_var(--color-brand-red)] hover:brightness-110 clip-path-slant"
+                        >
+                            Buy Now
+                        </a>
+                    </motion.div>
+                </AnimatePresence>
+            </div>
+
+            {/* Navigation Dots */}
+            <div className="absolute bottom-12 left-1/2 -translate-x-1/2 flex gap-4 z-20">
+                {slides.map((_, index) => (
+                    <button
+                        key={index}
+                        onClick={() => setCurrentSlide(index)}
+                        className={`w-12 h-1 rounded-full transition-all duration-300 ${index === currentSlide ? 'bg-[var(--color-brand-red)] shadow-[0_0_10px_var(--color-brand-red)]' : 'bg-white/20'
+                            }`}
+                    />
+                ))}
+            </div>
         </section>
     );
 }
