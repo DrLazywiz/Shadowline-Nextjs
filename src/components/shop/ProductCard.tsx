@@ -32,7 +32,7 @@ export function ProductCard({ product }: { product: Product }) {
                             src={featuredImage.url}
                             alt={featuredImage.altText || title}
                             fill
-                            className="object-contain p-2 transition-transform duration-500 group-hover:scale-105"
+                            className="object-contain p-0 transition-transform duration-500 group-hover:scale-105"
                             sizes="(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 50vw"
                         />
                     )}
@@ -46,7 +46,7 @@ export function ProductCard({ product }: { product: Product }) {
                             </h3>
                         </Link>
                         <div className="flex items-center gap-2 mt-1">
-                            <p className="text-sm font-bold font-mono text-white">
+                            <p className="text-lg font-black font-mono text-white">
                                 {new Intl.NumberFormat('en-US', {
                                     style: 'currency',
                                     currency: currency,

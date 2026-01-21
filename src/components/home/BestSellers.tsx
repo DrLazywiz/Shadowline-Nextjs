@@ -36,7 +36,7 @@ export async function BestSellers() {
 
                 <div className="flex overflow-x-auto snap-x snap-mandatory gap-6 pb-8 -mx-6 px-6 lg:grid lg:grid-cols-4 lg:gap-8 lg:pb-0 lg:mx-0 lg:px-0 no-scrollbar">
                     {topProducts.map(product => (
-                        <div key={product.id} className="min-w-[85vw] sm:min-w-[45vw] lg:min-w-0 snap-center">
+                        <div key={product.id} className="min-w-[45vw] sm:min-w-[33vw] lg:min-w-0 snap-center">
                             <ProductCard product={product} />
                         </div>
                     ))}
