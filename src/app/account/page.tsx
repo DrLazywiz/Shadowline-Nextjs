@@ -1,6 +1,6 @@
 
 import { getCustomerAction, logoutAction } from '@/app/actions';
-import { Navbar } from '@/components/layout/Navbar';
+import { ProfileForm } from '@/components/account/ProfileForm';
 import { redirect } from 'next/navigation';
 import { LogOut, Package, User } from 'lucide-react';
 
@@ -13,7 +13,6 @@ export default async function AccountPage() {
 
     return (
         <main className="min-h-screen bg-black text-white selection:bg-white selection:text-black">
-            <Navbar />
 
             <div className="pt-32 pb-24 container mx-auto px-6">
                 <div className="flex flex-col md:flex-row gap-12">
@@ -45,7 +44,14 @@ export default async function AccountPage() {
                                 </div>
                             </div>
 
-                            <form action={logoutAction} className="mt-8 pt-8 border-t border-white/5">
+                            {/* Profile Update Section */}
+                            <div className="mt-8 pt-8 border-t border-white/5">
+                                <h3 className="text-xs font-bold uppercase tracking-widest text-neutral-500 mb-4">Update Profile</h3>
+                                <ProfileForm customer={customer} />
+                            </div>
+
+
+                            <form action={logoutAction} className="mt-8 pt-6 border-t border-white/5">
                                 <button className="w-full flex items-center justify-center gap-2 text-xs font-bold uppercase tracking-widest text-red-500 hover:text-red-400 transition-colors">
                                     <LogOut size={14} /> Terminate Session
                                 </button>

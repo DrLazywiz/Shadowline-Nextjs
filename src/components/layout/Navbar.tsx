@@ -61,7 +61,9 @@ const navLinks = [
     { name: 'Contact', href: '/contact' },
 ];
 
-export function Navbar() {
+import { Customer } from '@/lib/shopify';
+
+export function Navbar({ customer }: { customer?: Customer | null }) {
     const [isScrolled, setIsScrolled] = React.useState(false);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [searchOpen, setSearchOpen] = useState(false);
@@ -91,7 +93,7 @@ export function Navbar() {
         <>
             <motion.nav
                 className={clsx(
-                    'fixed inset-x-0 top-0 z-50 flex h-20 items-center justify-between px-6 transition-all duration-500 lg:px-12',
+                    'fixed inset-x-0 top-0 z-50 flex h-16 md:h-20 items-center justify-between px-6 transition-all duration-500 lg:px-12',
                     isScrolled
                         ? 'bg-black/90 backdrop-blur-md border-b border-white/10'
                         : 'bg-transparent'
@@ -196,13 +198,20 @@ export function Navbar() {
                         <Search size={20} strokeWidth={1.5} />
                     </button>
 
-                    <Link href="/login" className="relative text-white hover:text-neutral-400 transition-colors">
+                    <Link href={customer ? "/account" : "/login"} className="relative text-white hover:text-neutral-400 transition-colors flex items-center gap-2 group">
                         <div className="relative">
                             <User size={20} strokeWidth={1.5} />
-                            <div className="absolute -bottom-1 -right-1 text-[var(--color-brand-red)] drop-shadow-[0_0_5px_rgba(234,0,0,0.8)]">
-                                <Zap size={10} fill="currentColor" />
-                            </div>
+                            {customer && (
+                                <div className="absolute -bottom-1 -right-1 text-[var(--color-brand-red)] drop-shadow-[0_0_5px_rgba(234,0,0,0.8)]">
+                                    <Zap size={10} fill="currentColor" />
+                                </div>
+                            )}
                         </div>
+                        {customer && (
+                            <span className="text-xs font-mono font-bold uppercase tracking-widest hidden md:block group-hover:text-[var(--color-brand-red)] transition-colors">
+                                {customer.firstName}
+                            </span>
+                        )}
                     </Link>
 
                     <button onClick={openCart} className="text-white hover:text-neutral-400 transition-colors relative">
@@ -331,12 +340,12 @@ export function Navbar() {
                             {/* Drawer Footer */}
                             <div className="p-6 border-t border-white/10 bg-neutral-900/50">
                                 <Link
-                                    href="/login"
+                                    href={customer ? "/account" : "/login"}
                                     onClick={() => setMobileMenuOpen(false)}
                                     className="flex items-center gap-3 text-sm font-mono font-medium tracking-widest text-[var(--color-brand-red)] uppercase hover:text-red-400 transition-colors"
                                 >
                                     <User size={18} />
-                                    Account
+                                    {customer ? `Account: ${customer.firstName}` : 'Login / Register'}
                                 </Link>
                             </div>
                         </motion.div>

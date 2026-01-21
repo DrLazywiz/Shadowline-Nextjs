@@ -1,7 +1,7 @@
 
 'use server';
 
-import { createCart, addToCart, removeFromCart, getCart, createCustomerAccessToken, getCustomer, createCustomer } from '@/lib/shopify';
+import { createCart, addToCart, removeFromCart, getCart, createCustomerAccessToken, getCustomer, createCustomer, updateCustomer, updateCartLines } from '@/lib/shopify';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 
@@ -11,6 +11,11 @@ export async function createCartAction() {
 
 export async function addToCartAction(cartId: string, lines: { merchandiseId: string; quantity: number }[]) {
     return await addToCart(cartId, lines);
+}
+
+
+export async function updateCartAction(cartId: string, lines: { id: string; merchandiseId: string; quantity: number }[]) {
+    return await updateCartLines(cartId, lines);
 }
 
 export async function removeFromCartAction(cartId: string, lineIds: string[]) {
@@ -76,5 +81,37 @@ export async function registerAction(prevState: any, formData: FormData) {
         return { message: 'Access Granted. Proceed to Identification.', success: true };
     } else {
         return { message: result.errors?.[0]?.message || 'Registration Failed.' };
+    }
+}
+
+export async function updateCustomerAction(prevState: any, formData: FormData) {
+    const cookieStore = await cookies();
+    const accessToken = cookieStore.get('customerAccessToken')?.value;
+
+    if (!accessToken) {
+        return { message: 'Unauthorized', success: false };
+    }
+
+    const firstName = formData.get('firstName') as string;
+    const lastName = formData.get('lastName') as string;
+    const email = formData.get('email') as string;
+    const password = formData.get('password') as string;
+
+    const updateData: any = {};
+    if (firstName) updateData.firstName = firstName;
+    if (lastName) updateData.lastName = lastName;
+    if (email) updateData.email = email;
+    if (password) updateData.password = password;
+
+    if (Object.keys(updateData).length === 0) {
+        return { message: 'No changes detected.', success: false };
+    }
+
+    const result = await updateCustomer(accessToken, updateData);
+
+    if (result.success) {
+        return { message: 'Profile Updated Successfully.', success: true };
+    } else {
+        return { message: result.errors?.[0]?.message || 'Update Failed.', success: false };
     }
 }

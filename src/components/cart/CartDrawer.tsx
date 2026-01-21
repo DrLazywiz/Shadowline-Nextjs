@@ -3,12 +3,12 @@
 
 import { useCart } from './CartContext';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Trash2, ArrowRight } from 'lucide-react';
+import { X, Trash2, ArrowRight, Minus, Plus } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 
 export function CartDrawer() {
-    const { isOpen, closeCart, cart, removeItem } = useCart();
+    const { isOpen, closeCart, cart, removeItem, updateItem } = useCart();
 
     return (
         <AnimatePresence>
@@ -62,10 +62,10 @@ export function CartDrawer() {
                                 cart.lines.edges.map(({ node: line }) => (
                                     <div key={line.id} className="flex gap-4 group">
                                         <div className="relative w-24 h-24 bg-black/50 border border-white/5 rounded-md overflow-hidden flex-shrink-0">
-                                            {line.merchandise.product.featuredImage && (
+                                            {(line.merchandise.image || line.merchandise.product.featuredImage) && (
                                                 <Image
-                                                    src={line.merchandise.product.featuredImage.url}
-                                                    alt={line.merchandise.product.featuredImage.altText || line.merchandise.product.title}
+                                                    src={line.merchandise.image?.url || line.merchandise.product.featuredImage.url}
+                                                    alt={line.merchandise.image?.altText || line.merchandise.product.featuredImage.altText || line.merchandise.product.title}
                                                     fill
                                                     className="object-contain p-2"
                                                 />
@@ -80,16 +80,50 @@ export function CartDrawer() {
                                                     {line.merchandise.title !== 'Default Title' ? line.merchandise.title : 'Standard Spec'}
                                                 </p>
                                             </div>
-                                            <div className="flex items-center justify-between">
-                                                <span className="font-mono text-sm text-neutral-300">
-                                                    x{line.quantity}
-                                                </span>
-                                                <button
-                                                    onClick={() => removeItem(line.id)}
-                                                    className="text-neutral-600 hover:text-red-500 transition-colors"
-                                                >
-                                                    <Trash2 size={16} />
-                                                </button>
+                                            <div className="flex items-center justify-between mt-3">
+                                                {/* Quantity Controls */}
+                                                <div className="flex items-center gap-1 border border-white/10 rounded-sm bg-neutral-900">
+                                                    <button
+                                                        onClick={() => {
+                                                            if (line.quantity > 1) {
+                                                                updateItem(line.id, line.merchandise.id, line.quantity - 1);
+                                                            } else {
+                                                                removeItem(line.id);
+                                                            }
+                                                        }}
+                                                        className="p-1.5 text-neutral-500 hover:text-white hover:bg-white/10 transition-colors"
+                                                    >
+                                                        <Minus size={12} />
+                                                    </button>
+                                                    <span className="font-mono text-xs font-bold text-white min-w-[20px] text-center">
+                                                        {line.quantity}
+                                                    </span>
+                                                    <button
+                                                        onClick={() => updateItem(line.id, line.merchandise.id, line.quantity + 1)}
+                                                        className="p-1.5 text-neutral-500 hover:text-white hover:bg-white/10 transition-colors"
+                                                    >
+                                                        <Plus size={12} />
+                                                    </button>
+                                                </div>
+
+                                                {/* Price & Remove */}
+                                                <div className="flex items-center gap-4">
+                                                    {line.merchandise.price && (
+                                                        <span className="font-mono text-xs text-white">
+                                                            {new Intl.NumberFormat('en-US', {
+                                                                style: 'currency',
+                                                                currency: line.merchandise.price.currencyCode
+                                                            }).format(parseFloat(line.merchandise.price.amount))}
+                                                        </span>
+                                                    )}
+                                                    <button
+                                                        onClick={() => removeItem(line.id)}
+                                                        className="text-neutral-600 hover:text-[var(--color-brand-red)] transition-colors"
+                                                        aria-label="Remove item"
+                                                    >
+                                                        <Trash2 size={14} />
+                                                    </button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

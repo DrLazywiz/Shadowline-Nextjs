@@ -87,6 +87,14 @@ export type Cart = {
         merchandise: {
           id: string;
           title: string;
+          image?: {
+            url: string;
+            altText: string;
+          };
+          price: {
+            amount: string;
+            currencyCode: string;
+          };
           product: {
             title: string;
             handle: string;
@@ -368,6 +376,14 @@ export async function addToCart(cartId: string, lines: { merchandiseId: string; 
                     ... on ProductVariant {
                       id
                       title
+                      image {
+                        url
+                        altText
+                      }
+                      price {
+                        amount
+                        currencyCode
+                      }
                       product {
                         title
                         handle
@@ -440,6 +456,14 @@ export async function getCart(cartId: string): Promise<Cart | undefined> {
                   ... on ProductVariant {
                     id
                     title
+                    image {
+                      url
+                      altText
+                    }
+                    price {
+                      amount
+                      currencyCode
+                    }
                     product {
                       title
                       handle
@@ -507,6 +531,14 @@ export async function removeFromCart(cartId: string, lineIds: string[]): Promise
                     ... on ProductVariant {
                       id
                       title
+                      image {
+                        url
+                        altText
+                      }
+                      price {
+                        amount
+                        currencyCode
+                      }
                       product {
                         title
                         handle
@@ -681,4 +713,136 @@ export async function createCustomer(email: string, password: string, firstName:
   }
 
   return { success: true };
+}
+
+export async function updateCustomer(accessToken: string, customer: { firstName?: string; lastName?: string; email?: string; password?: string }): Promise<{ success: boolean; errors?: any[] }> {
+  const query = `
+      mutation customerUpdate($customerAccessToken: String!, $customer: CustomerUpdateInput!) {
+        customerUpdate(customerAccessToken: $customerAccessToken, customer: $customer) {
+          customer {
+            id
+            firstName
+            lastName
+            email
+          }
+          customerUserErrors {
+            code
+            field
+            message
+          }
+        }
+      }
+    `;
+
+  const response = await shopifyFetch<{
+    data: {
+      customerUpdate: {
+        customer: {
+          id: string;
+          firstName: string;
+          lastName: string;
+          email: string;
+        } | null;
+        customerUserErrors: {
+          code: string;
+          field: string;
+          message: string;
+        }[];
+      };
+    };
+  }>({
+    query,
+    variables: {
+      customerAccessToken: accessToken,
+      customer
+    },
+    cache: 'no-store'
+  });
+
+  if (response.body.data.customerUpdate.customerUserErrors.length > 0) {
+    return { success: false, errors: response.body.data.customerUpdate.customerUserErrors };
+  }
+
+  return { success: true };
+}
+
+export async function updateCartLines(cartId: string, lines: { id: string; merchandiseId: string; quantity: number }[]): Promise<Cart> {
+  const query = `
+      mutation cartLinesUpdate($cartId: ID!, $lines: [CartLineUpdateInput!]!) {
+        cartLinesUpdate(cartId: $cartId, lines: $lines) {
+          cart {
+            id
+            checkoutUrl
+            cost {
+              subtotalAmount {
+                amount
+                currencyCode
+              }
+              totalAmount {
+                amount
+                currencyCode
+              }
+              totalTaxAmount {
+                amount
+                currencyCode
+              }
+            }
+            lines(first: 100) {
+              edges {
+                node {
+                  id
+                  quantity
+                  cost {
+                    totalAmount {
+                      amount
+                      currencyCode
+                    }
+                  }
+                  merchandise {
+                    ... on ProductVariant {
+                      id
+                      title
+                      image {
+                        url
+                        altText
+                      }
+                      price {
+                        amount
+                        currencyCode
+                      }
+                      product {
+                        title
+                        handle
+                        featuredImage {
+                          url
+                          altText
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+            totalQuantity
+          }
+        }
+      }
+    `;
+
+  const response = await shopifyFetch<{
+    data: {
+      cartLinesUpdate: {
+        cart: Cart;
+      };
+    };
+  }>({
+    query,
+    variables: {
+      cartId,
+      lines,
+    },
+    cache: 'no-store'
+  });
+
+  return response.body.data.cartLinesUpdate.cart;
 }

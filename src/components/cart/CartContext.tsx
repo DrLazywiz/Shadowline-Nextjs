@@ -3,14 +3,15 @@
 
 import React, { createContext, useContext, useEffect, useState, useMemo } from 'react';
 import { Cart } from '@/lib/shopify';
-import { createCartAction, addToCartAction, getCartAction, removeFromCartAction } from '@/app/actions';
+import { createCartAction, addToCartAction, getCartAction, removeFromCartAction, updateCartAction } from '@/app/actions';
 
 type CartContextType = {
     isOpen: boolean;
     openCart: () => void;
     closeCart: () => void;
     cart: Cart | undefined;
-    addItem: (variantId: string) => Promise<void>;
+    addItem: (variantId: string) => Promise<Cart | undefined>;
+    updateItem: (lineId: string, merchandiseId: string, quantity: number) => Promise<void>;
     removeItem: (lineId: string) => Promise<void>;
 };
 
@@ -56,6 +57,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
             const updatedCart = await addToCartAction(currentCartId, [{ merchandiseId: variantId, quantity: 1 }]);
             setCart(updatedCart);
             openCart();
+            return updatedCart;
         } catch (e) {
             console.error("Failed to add to cart", e);
         }
@@ -67,12 +69,19 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
         setCart(updatedCart);
     };
 
+    const updateItem = async (lineId: string, merchandiseId: string, quantity: number) => {
+        if (!cart?.id) return;
+        const updatedCart = await updateCartAction(cart.id, [{ id: lineId, merchandiseId, quantity }]);
+        setCart(updatedCart);
+    };
+
     const value = useMemo(() => ({
         isOpen,
         openCart,
         closeCart,
         cart,
         addItem,
+        updateItem,
         removeItem
     }), [isOpen, cart]);
 

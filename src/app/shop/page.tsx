@@ -1,7 +1,7 @@
 
 import { getProducts } from '@/lib/shopify';
 import { ProductCard } from '@/components/shop/ProductCard';
-import { Navbar } from '@/components/layout/Navbar';
+
 import { ShopToolbar } from '@/components/shop/ShopToolbar';
 import { ShopSidebar } from '@/components/shop/ShopSidebar';
 import { Search } from 'lucide-react';
@@ -78,7 +78,6 @@ export default async function ShopPage({
 
     return (
         <main className="min-h-screen bg-black text-white selection:bg-white selection:text-black">
-            <Navbar />
 
             <div className="pt-32 pb-24 container mx-auto px-6">
                 {/* Header */}

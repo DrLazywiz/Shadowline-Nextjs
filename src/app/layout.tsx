@@ -20,17 +20,23 @@ export const metadata: Metadata = {
   description: "Precision engineered components.",
 };
 
-export default function RootLayout({
+import { Navbar } from "@/components/layout/Navbar";
+import { getCustomerAction } from "@/app/actions";
+
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const customer = await getCustomerAction();
+
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <CartProvider>
+          <Navbar customer={customer} />
           {children}
           <CartDrawer />
         </CartProvider>

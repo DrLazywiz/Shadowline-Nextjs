@@ -15,7 +15,7 @@ export function Hero() {
             mobileImage: '/images/mobile%20hero/Artboard%201.jpg',
             title: 'Precision Redefined.',
             subtitle: 'Beyond Components. The Architecture of Speed.',
-            link: '/shop?sort=best-selling'
+            link: '/shop'
         },
         {
             id: 2,
@@ -23,7 +23,7 @@ export function Hero() {
             mobileImage: '/images/mobile%20hero/Artboard%202.jpg',
             title: 'Total Control.',
             subtitle: 'Engineered for the Edge of Physics.',
-            link: '/shop?type=Components'
+            link: '/shop'
         },
         {
             id: 3,
