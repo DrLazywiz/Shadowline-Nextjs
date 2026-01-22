@@ -19,7 +19,7 @@ export async function BestSellers() {
             <div className="absolute inset-0 bg-[grid-white/5] bg-[size:40px_40px] pointer-events-none" />
             <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full blur-[100px] pointer-events-none" />
 
-            <div className="container mx-auto px-6 relative z-10">
+            <div className="container mx-auto px-6 relative z-[1]">
                 <div className="mb-12 flex items-end justify-between">
                     <div>
                         <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tighter text-white mb-2">
