@@ -11,7 +11,7 @@ export function Hero() {
     const slides = [
         {
             id: 1,
-            image: '/images/Hero/slide2.png',
+            image: '/images/Hero/slide4.png',
             mobileImage: '/images/mobile%20hero/Artboard%201.jpg',
             title: 'Precision Redefined.',
             subtitle: 'Beyond Components. The Architecture of Speed.',
