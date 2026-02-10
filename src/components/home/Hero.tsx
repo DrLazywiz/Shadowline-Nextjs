@@ -19,7 +19,7 @@ export function Hero() {
         },
         {
             id: 2,
-            image: '/images/Hero/slide1.png',
+            image: '/images/bike/herobike2.png',
             mobileImage: '/images/mobile%20hero/Artboard%202.jpg',
             title: 'Total Control.',
             subtitle: 'Engineered for the Edge of Physics.',
@@ -27,7 +27,7 @@ export function Hero() {
         },
         {
             id: 3,
-            image: '/images/Landing/1.jpg',
+            image: '/images/bike/herobike.png',
             mobileImage: '/images/mobile%20hero/Artboard%203.jpg',
             title: 'Unleash Speed.',
             subtitle: 'Dominate the Track. own the Podium.',

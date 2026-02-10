@@ -12,27 +12,27 @@ import { useCart } from '@/components/cart/CartContext';
 
 const navLinks = [
     {
-        name: 'Shop by Bike',
+        name: 'Vehicle Type',
         href: '/shop',
         dropdown: [
             {
-                category: 'KTM',
+                category: '',
                 items: [
-                    { name: 'KTM SX 85 Parts', href: '/shop?q=KTM SX 85' },
-                    { name: 'KTM SX 250 Parts', href: '/shop?q=KTM SX 250' },
+                    { name: 'MOTOCROSS', href: '/shop?q=motocross' },
+                    { name: 'SUPERCROSS', href: '/shop?q=supercross' },
                 ]
             },
             {
-                category: 'GASGAS',
+                category: '',
                 items: [
-                    { name: 'GasGas 85 Parts', href: '/shop?q=GASGAS 85' },
-                    { name: 'GasGas 250 Parts', href: '/shop?q=GASGAS 250' },
+                    { name: 'SUPER BIKES', href: '/shop?q=super bikes' },
+                    { name: 'INDIAN BIKES', href: '/shop?q=indian bikes' },
                 ]
             },
             {
-                category: 'HERO',
+                category: '',
                 items: [
-                    { name: 'Hero XPulse 200 4V Parts', href: '/shop?q=XPULSE' },
+                    { name: 'CYCLES', href: '/shop?q=cycles' },
                 ]
             }
         ]
@@ -42,17 +42,17 @@ const navLinks = [
         href: '/parts',
         dropdown: [
             {
-                category: 'DRIVETRAIN',
+                category: '',
                 items: [
                     { name: 'Sprockets', href: '/shop?q=sprocket' },
-                    { name: 'Chains', href: '/shop?q=chain' },
+                    { name: 'Triple Clamps', href: '/shop?q=triple clamps' },
                 ]
             },
             {
-                category: 'SUSPENSION',
+                category: '',
                 items: [
-                    { name: 'Forks', href: '/shop?q=fork' },
-                    { name: 'Shocks', href: '/shop?q=shock' },
+                    { name: 'Performance Parts', href: '/shop?q=performance parts' },
+                    { name: 'All Parts', href: '/parts' },
                 ]
             }
         ]
@@ -165,9 +165,11 @@ export function Navbar({ customer }: { customer?: Customer | null }) {
                                     <div className="grid grid-cols-3 gap-8">
                                         {link.dropdown.map((section) => (
                                             <div key={section.category}>
-                                                <h3 className="text-xs font-bold uppercase tracking-widest text-[var(--color-brand-red)] mb-4">
-                                                    {section.category}
-                                                </h3>
+                                                {section.category && (
+                                                    <h3 className="text-xs font-bold uppercase tracking-widest text-[var(--color-brand-red)] mb-4">
+                                                        {section.category}
+                                                    </h3>
+                                                )}
                                                 <ul className="space-y-3">
                                                     {section.items.map((item) => (
                                                         <li key={item.name}>

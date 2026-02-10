@@ -51,7 +51,8 @@ export function ProductInfo({ product }: { product: Product }) {
         if (variantId) {
             const updatedCart = await addItem(variantId);
             if (updatedCart?.checkoutUrl) {
-                router.push(updatedCart.checkoutUrl);
+                const returnUrl = encodeURIComponent(`${process.env.NEXT_PUBLIC_SITE_URL}/cart`);
+                router.push(`${updatedCart.checkoutUrl}?return_url=${returnUrl}`);
                 return;
             }
         }

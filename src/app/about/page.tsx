@@ -130,7 +130,7 @@ export default function AboutPage() {
                                 </FadeInWhenVisible>
                                 <FadeInWhenVisible delay={0.5}>
                                     <div className="aspect-[4/5] bg-neutral-900 border border-white/5 rounded-lg overflow-hidden relative group mt-12">
-                                        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1622185135505-2d795003994a?q=80&w=800&auto=format&fit=crop')] bg-cover bg-center grayscale group-hover:grayscale-0 transition-all duration-700" />
+                                        <div className="absolute inset-0 bg-[url('/images/bike/herobike.png')] bg-cover bg-center grayscale group-hover:grayscale-0 transition-all duration-700" />
                                         <div className="absolute inset-0 bg-black/40 group-hover:bg-transparent transition-colors duration-700" />
                                         <div className="absolute bottom-4 left-4">
                                             <p className="font-mono text-xs font-bold text-white uppercase tracking-widest">Precision Milled</p>

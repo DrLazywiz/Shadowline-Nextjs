@@ -144,7 +144,7 @@ export function CartDrawer() {
                                     </span>
                                 </div>
                                 <a
-                                    href={cart.checkoutUrl}
+                                    href={`${cart.checkoutUrl}?return_url=${encodeURIComponent(`${process.env.NEXT_PUBLIC_SITE_URL}/cart`)}`}
                                     className="block w-full bg-[var(--color-brand-red)] text-white text-center font-bold uppercase tracking-widest py-4 hover:shadow-[0_0_20px_var(--color-brand-red)] hover:brightness-110 transition-all"
                                 >
                                     Proceed to Checkout
