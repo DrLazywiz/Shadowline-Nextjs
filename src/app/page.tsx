@@ -3,6 +3,7 @@
 import { Hero } from '@/components/home/Hero';
 import { BestSellers } from '@/components/home/BestSellers';
 import { BikeSelector } from '@/components/home/BikeSelector';
+import { CategoryCarousel } from '@/components/home/CategoryCarousel';
 import { Testimonials } from '@/components/home/Testimonials';
 import { Footer } from '@/components/layout/Footer';
 import Link from 'next/link';
@@ -13,6 +14,7 @@ export default function Home() {
       <Hero />
       <BestSellers />
       <BikeSelector />
+      <CategoryCarousel />
       <Testimonials />
 
       {/* Footer Placeholder */}

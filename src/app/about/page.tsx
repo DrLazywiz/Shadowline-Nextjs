@@ -102,7 +102,7 @@ export default function AboutPage() {
                             <FadeInWhenVisible delay={0.2}>
                                 <div className="space-y-6 text-lg md:text-xl text-neutral-300 font-light leading-relaxed">
                                     <p>
-                                        We build legacies. With a focus on <strong className="text-white font-bold">titanium</strong> and <strong className="text-white font-bold">carbon fiber</strong>, we craft high-performance components for the automotive, motorcycle, and aviation industries.
+                                        We build legacies. With a focus on <strong className="text-white font-bold">metallurgy</strong> and <strong className="text-white font-bold">carbon fiber</strong>, we craft high-performance components for the automotive, motorcycle, and aviation industries.
                                     </p>
                                     <p>
                                         Designed in Europe and built to last a lifetime, every product reflects uncompromising standards of speed, strength, and innovation.
@@ -181,19 +181,23 @@ export default function AboutPage() {
                             <FadeInWhenVisible delay={0.2}>
                                 <h3 className="text-2xl md:text-3xl font-bold uppercase leading-tight">
                                     "I didn't just want to build parts. <br />
-                                    I wanted to build <span className="text-neutral-400">trust at 200mph.</span>"
+                                    I wanted to build <span className="text-neutral-400">trust at 200kmph.</span>"
                                 </h3>
                             </FadeInWhenVisible>
                             <FadeInWhenVisible delay={0.3}>
                                 <div className="space-y-6 text-neutral-400 text-lg leading-relaxed">
                                     <p>
-                                        Shadowline wasn't born in a boardroom. It was born on the tarmac, forged in the heat of competition, and refined by the relentless pursuit of perfection.
+                                        I watched my sister Nithila become a National Champion at 12 and 13, only to be forced to stop racing because India doesn’t allow kids on circuits until 16. That frustration lit a fire in me.
                                     </p>
                                     <p>
-                                        As a rider myself, I understand that at the limit, your equipment is your lifeline. That's why we don't cut corners. We use aerospace-grade titanium and the finest carbon fiber weaves, engineered not just to look good, but to outperform everything else on the grid.
+                                        Shadowline wasn’t born in a boardroom—it was born out of that gap, forged in competition, and driven by the belief that young riders deserve a platform.
                                     </p>
                                     <p>
-                                        This is more than a brand. It's my promise to every rider, driver, and pilot who demands the best.
+                                        At 13, I know that at the limit, your equipment is your lifeline. That’s why we engineered a machine that refuses to compromise.
+                                        The Helium 160 is our first step. More than a machine—it’s a revolution. For every rider who refuses to settle, this is your chance to feel what a true race bike is meant to be.
+                                    </p>
+                                    <p>
+                                        The future of racing starts here.
                                     </p>
                                 </div>
                             </FadeInWhenVisible>
@@ -201,11 +205,11 @@ export default function AboutPage() {
                             <FadeInWhenVisible delay={0.4}>
                                 <div className="grid grid-cols-3 gap-6 pt-8 border-t border-white/10">
                                     <div>
-                                        <div className="text-3xl font-black text-white mb-1">15+</div>
+                                        <div className="text-3xl font-black text-white mb-1">8+</div>
                                         <div className="text-xs font-mono text-neutral-500 uppercase tracking-widest">Years Riding</div>
                                     </div>
                                     <div>
-                                        <div className="text-3xl font-black text-white mb-1">Eur</div>
+                                        <div className="text-3xl font-black text-white mb-1">EUROPE</div>
                                         <div className="text-xs font-mono text-neutral-500 uppercase tracking-widest">Design Roots</div>
                                     </div>
                                     <div>
